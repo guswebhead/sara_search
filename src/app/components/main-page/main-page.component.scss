@@ -1,0 +1,207 @@
+.main {
+  height: 100%;
+  color: black;
+  font-family: 'Montserrat', sans-serif;
+
+  h4{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px
+  }
+  .header {
+    // height: 100%;
+    width: 100%;
+    background-size: cover;
+    color: white;
+    height: 100%;
+
+    gap: 16px;
+
+    // padding: 16px;
+
+    background-image: url('../../../assets/bg.svg');
+    background-repeat: no-repeat;
+
+
+    .logo {
+      z-index: 3;
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+    }
+
+    .background {
+      width: 100%;
+      pointer-events: none;
+      position: absolute;
+    }
+
+    .textHeader {
+      width: 70%;
+
+      .text1 {
+        font-family:  'Poppins', sans-serif;
+        font-size: 89px;
+        display: flex;
+        flex-direction: column;
+        line-height: 96px;
+        margin-bottom: 48px;
+      }
+
+      .text2 {
+        font-size: 24px;
+        font-weight: 300;
+        gap: 45px;
+      }
+    }
+
+    .buttonPrincipal {
+      display: flex;
+
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+
+      margin-top: 32px;
+      background: #547AFF;
+      width: 400px;
+      height: 65px;
+      font-size: 24px;
+      color: white;
+      border-radius: 5px;
+      border: none;
+
+      transition: .5s all;
+    }
+
+    .buttonPrincipal:hover{
+      background-color: #809bfc;
+      font-size: 28px;
+    }
+
+    hr {
+      width: 70%;
+      margin-bottom: 32px;
+      height: 2px;
+      border-width: 0;
+      background-color: white;
+      opacity: 1;
+    }
+  }
+
+  .formsColumn{
+    font-size: 24px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 3rem;
+
+    .warn .aster{
+      color: red;
+    }
+
+    .formsCards{
+      padding: 3rem 8rem 3rem 8rem;
+      background: #EBEBEB;
+      border-radius: 4px;
+
+      font-weight: 300;
+
+      h4{
+        font-weight: 500;
+        margin-bottom: 3rem;
+      }
+
+      hr {
+        height: 4px;
+        border-width: 0;
+        background-color: white;
+        opacity: 1;
+      }
+    }
+
+    .buttonDefault{
+      font-family: 'Montserrat', sans-serif;
+      background: #547AFF;
+      width: 340px;
+      height: 60px;
+      font-size: 32px;
+      color: white;
+      border-radius: 5px;
+      border: none;
+
+      transition: .5s all;
+    }
+
+    .buttonStroked{
+      font-family: 'Montserrat', sans-serif;
+      background: #EBEBEB;
+      width: 340px;
+      height: 60px;
+      font-size: 32px;
+      color: #547AFF;
+      border-radius: 5px;
+      border: none;
+
+      transition: .5s all;
+    }
+
+    .boxAnother{
+      width: 10%;
+    }
+    .fieldCheckbox{
+      width: 90%;
+    }
+  }
+}
+
+::ng-deep{
+  .mat-mdc-checkbox .mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background{
+    background-color: #547aff !important;
+    border-color: #547aff !important;
+  }
+
+  .personalSelect  .mat-mdc-select-value-text,
+  .mat-mdc-option .mdc-list-item__primary-text,
+  .mat-primary .mat-pseudo-checkbox-checked.mat-pseudo-checkbox-minimal::after,
+  .mat-mdc-form-field .mat-mdc-floating-label.mdc-floating-label,
+  .mat-mdc-select-arrow{
+    color: white !important;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .personalSelect .mat-mdc-text-field-wrapper ,.mdc-menu-surface.mat-mdc-select-panel{
+    background-color: #547aff !important;
+  }
+
+  .mat-mdc-text-field-wrapper{
+    background-color: white;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing,
+  .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading,
+  .mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field .mdc-notched-outline__notch {
+    border: none !important;
+  }
+
+  .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle,
+  .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled+.mdc-radio__background .mdc-radio__inner-circle{
+    border-color: #547aff !important;
+  }
+
+  .mdc-form-field>label{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+  }
+
+  .mat-mdc-radio-button .mdc-form-field{
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+  }
+ .mdc-form-field>label{
+    margin: 0 !important;
+  }
+}
