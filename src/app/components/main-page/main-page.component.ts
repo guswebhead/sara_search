@@ -129,10 +129,10 @@ export class MainPageComponent implements OnInit {
          footer: ''
        }).then(
         ()=>{
+          window.open('https://drive.google.com/uc?export=download&id=1LyqTkfO2UXBPE1LxpW1hQFmmr63Z0HEB', '_blank')
           location.reload()
         }
        )
-      //  window.open('https://app-sara-connect.s3.sa-east-1.amazonaws.com/OLHE+PARA+O+ALTO.pdf', '_blank');
      },
      err => {
         this.errorMsg = err;
