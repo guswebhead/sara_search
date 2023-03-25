@@ -20,31 +20,37 @@ export class MainPageComponent implements OnInit {
     email: new FormControl('', Validators.required),
     age: new FormControl('', Validators.required),
     relationship: new FormControl('', Validators.required),
-    child:new FormControl( null , Validators.required),
+    child:new FormControl( '', Validators.required),
     manyChilds: new FormControl(),
-    sex: new FormControl(),
-    address: new FormControl(),
-    occupation: new FormArray<any>([]),
-    coffe:  new FormArray<any>([]),
-    themeDomain: new FormControl(),
-    prevents : new FormControl(),
-    dream: new FormControl(),
-    fear: new FormControl(),
-    commitment: new FormControl(),
-    involvementChurch: new FormControl(),
-    attracted: new FormControl(),
-    LikeToinvolved:  new FormControl(),
-    satisfaction:new FormControl(),
-    missInChurch: new FormControl(),
-    references: new FormControl(),
-    search: new FormControl(),
+    sex: new FormControl(null, Validators.required),
+    address: new FormControl('', Validators.required),
+    occupation: new FormArray<any>([], Validators.required),
+    coffe:  new FormArray<any>([], Validators.required),
+    themeDomain: new FormControl(null,  Validators.required),
+    prevents : new FormControl('',  Validators.required),
+    dream: new FormControl('',  Validators.required),
+    fear: new FormControl('',  Validators.required),
+    commitment: new FormControl(null,  Validators.required),
+    involvementChurch: new FormControl('',  Validators.required),
+    attracted: new FormControl('',  Validators.required),
+    LikeToinvolved:  new FormControl('',  Validators.required),
+    satisfaction:new FormControl(null,  Validators.required),
+    missInChurch: new FormControl('',  Validators.required),
+    references: new FormControl('',  Validators.required),
+    search: new FormControl(null,  Validators.required),
   })
 
   checkBoxCoffee: Array<string> = []
   errorMsg = '';
 
- teste: any
-
+  otherCoffeeValue = {
+    checked: false,
+    field: ''
+  }
+  otherOccupationValue = {
+    checked: false,
+    field: ''
+  }
 
   constructor(
     public formBuilder: FormBuilder,
@@ -73,6 +79,12 @@ export class MainPageComponent implements OnInit {
       });
     }
   }
+  otherCoffee(e:any){
+    this.otherCoffeeValue.checked = e.checked
+    if(!e.checked){
+      this.otherCoffeeValue.field = ''
+    }
+  }
 
   checkboxOccupation(e:any){
     const checkArray: FormArray = this.formCliente.get('occupation') as FormArray;
@@ -89,7 +101,23 @@ export class MainPageComponent implements OnInit {
       });
     }
   }
+
+  otherOccupation(e:any){
+    this.otherOccupationValue.checked = e.checked
+    if(!e.checked){
+      this.otherOccupationValue.field = ''
+    }
+  }
   submit(){
+    if(this.otherOccupationValue.checked){
+      const checkArray: FormArray = this.formCliente.get('occupation') as FormArray;
+      checkArray.push(new FormControl(this.otherOccupationValue.field));
+    }
+    if(this.otherCoffeeValue.checked){
+      const checkArray: FormArray = this.formCliente.get('coffe') as FormArray;
+      checkArray.push(new FormControl(this.otherCoffeeValue.field));
+    }
+
     this.netlifyForms.submitFeedback(this.formCliente.value).subscribe(
       () => {
         //  this.router.navigateByUrl('/success');
@@ -99,7 +127,11 @@ export class MainPageComponent implements OnInit {
          title: 'Sucesso!',
          text: 'O arquivo foi disponibilizado em uma nova aba!',
          footer: ''
-       })
+       }).then(
+        ()=>{
+          location.reload()
+        }
+       )
       //  window.open('https://app-sara-connect.s3.sa-east-1.amazonaws.com/OLHE+PARA+O+ALTO.pdf', '_blank');
      },
      err => {
@@ -112,10 +144,20 @@ export class MainPageComponent implements OnInit {
        })
       }
     );
-    console.log(this.formCliente.value)
   }
   clearForm(){
-    location.reload()
+    Swal.fire({
+      title: 'Deseja realmente limpar o formulário?',
+      showCancelButton: true,
+      confirmButtonText: 'Sim',
+      cancelButtonText: 'Não'
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        location.reload()
+      } else {
+      }
+    })
     // this.formCliente.reset();
     // const occupation: FormArray = this.formCliente.get('occupation') as FormArray;
     // const coffe: FormArray = this.formCliente.get('coffe') as FormArray;

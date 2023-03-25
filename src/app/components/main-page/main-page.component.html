@@ -38,7 +38,7 @@
 
   <section class="formsColumn h-100">
 
-    <form id="start" name="search" method="POST" class="formsCards" action="" [formGroup]="formCliente" data-netlify="true" netlify>
+    <form id="start" name="search_snt" method="POST" class="formsCards" action="" [formGroup]="formCliente" data-netlify="true" netlify>
 
       <div class="mb-5 d-flex align-items-center justify-content-end">
         <span class="warn">Perguntas com <span class="aster">*</span> serão obrigatórias.</span>
@@ -46,10 +46,13 @@
 
       <!-- Qual seu nome? -->
       <section class="mt-5 mb-5">
-        <h4>Qual seu nome?</h4>
+        <h4><span class="aster">*</span> Qual seu nome?</h4>
 
         <mat-form-field class="w-100" appearance="outline">
           <input matInput type="text" placeholder="sua resposta:" formControlName="name" name="name">
+          <mat-error *ngIf="formCliente.controls['name'].errors?.['required']">
+            Digite seu nome
+          </mat-error>
         </mat-form-field>
 
       </section>
@@ -58,10 +61,13 @@
 
       <!-- >Qual seu e-mail? -->
       <section class="mt-5 mb-5">
-        <h4>Qual seu e-mail?</h4>
+        <h4><span class="aster">*</span> Qual seu e-mail?</h4>
 
         <mat-form-field class="w-100" appearance="outline">
           <input matInput type="email" placeholder="sua resposta:" formControlName="email" name="email">
+          <mat-error *ngIf="formCliente.controls['email'].errors?.['required']">
+            Digite seu email
+          </mat-error>
         </mat-form-field>
 
       </section>
@@ -71,14 +77,17 @@
       <!-- Se você pudesse tomar um café com os Bispos Lucas e Priscila, em quais dos assuntos abaixo
           você gostaria que eles te ajudassem? (Pode marcar mais de um se preferir) -->
       <section class="mt-5 mb-5">
-        <h4>Se você pudesse tomar um café com os Bispos Lucas e Priscila, em quais dos assuntos abaixo
+        <h4> <span class="aster">*</span> Se você pudesse tomar um café com os Bispos Lucas e Priscila, em quais dos assuntos abaixo
           você gostaria que eles te ajudassem? (Pode marcar mais de um se preferir)</h4>
           <p *ngFor="let item of dataCheckbox">
             <mat-checkbox [value]="item" (change)="checkboxCoffee($event)">{{item}}</mat-checkbox></p>
-        <p><mat-checkbox class="boxAnother" value="outro">Outro:</mat-checkbox>
+        <p><mat-checkbox class="boxAnother" value="outro" (change)="otherCoffee($event)">Outro:</mat-checkbox>
           <mat-form-field appearance="outline"  class="fieldCheckbox">
-            <input matInput type="text" placeholder="sua resposta:">
+            <input matInput [disabled]="!(otherCoffeeValue.checked)" type="text" placeholder="sua resposta:" [(ngModel)]="otherCoffeeValue.field" [ngModelOptions]="{standalone: true}">
           </mat-form-field>
+          <mat-error style="font-size: 14px;" *ngIf="formCliente.controls['coffe'].errors?.['required']">
+            Assine um dos campos acima
+          </mat-error>
         </p>
 
       </section>
@@ -88,7 +97,7 @@
       <!-- Sobre os temas que você escolheu acima, seja sincero, o quanto você acha que domina o
           assunto? -->
       <section class="mt-5 mb-5">
-        <h4>Sobre os temas que você escolheu acima, seja sincero, o quanto você acha que domina o
+        <h4> <span class="aster">*</span> Sobre os temas que você escolheu acima, seja sincero, o quanto você acha que domina o
           assunto?</h4>
 
         <mat-form-field  appearance="outline" class="w-50 personalSelect">
@@ -101,6 +110,9 @@
             mais">Apenas admiro esse tema e não tenho nenhum interesse em aprender
               mais</mat-option>
           </mat-select>
+          <mat-error  *ngIf="formCliente.controls['themeDomain'].errors?.['required']">
+           Selecione uma opção
+          </mat-error>
         </mat-form-field>
 
       </section>
@@ -109,10 +121,13 @@
 
       <!-- O que mais tem te IMPEDIDO para romper nas áreas que você marcou acima? -->
       <section class="mt-5 mb-5">
-        <h4>O que mais tem te IMPEDIDO para romper nas áreas que você marcou acima?</h4>
+        <h4> <span class="aster">*</span> O que mais tem te IMPEDIDO para romper nas áreas que você marcou acima?</h4>
 
         <mat-form-field  class="w-100" appearance="outline">
           <input formControlName="prevents" matInput type="text" placeholder="sua resposta:" >
+          <mat-error  *ngIf="formCliente.controls['prevents'].errors?.['required']">
+            Preencha o campo acima
+           </mat-error>
         </mat-form-field>
 
       </section>
@@ -122,11 +137,14 @@
       <!-- Eu quero te ajudar de verdade. Então, qual é o seu maior SONHO em relação aos assuntos que
           você votou na primeira pergunta? -->
       <section class="mt-5 mb-5">
-        <h4>Eu quero te ajudar de verdade. Então, qual é o seu maior SONHO em relação aos assuntos que
+        <h4> <span class="aster">*</span> Eu quero te ajudar de verdade. Então, qual é o seu maior SONHO em relação aos assuntos que
           você votou na primeira pergunta?</h4>
 
         <mat-form-field class="w-100" appearance="outline">
           <input formControlName="dream" name="dream"  matInput type="text" placeholder="sua resposta:" >
+          <mat-error  *ngIf="formCliente.controls['dream'].errors?.['required']">
+            Preencha o campo acima
+           </mat-error>
         </mat-form-field>
 
       </section>
@@ -135,10 +153,13 @@
 
       <!-- Qual é o seu maior MEDO atualmente em relação aos temas votados acima? -->
       <section class="mt-5 mb-5">
-        <h4>Qual é o seu maior MEDO atualmente em relação aos temas votados acima?</h4>
+        <h4><span class="aster">*</span> Qual é o seu maior MEDO atualmente em relação aos temas votados acima?</h4>
 
         <mat-form-field  class="w-100" appearance="outline">
           <input formControlName="fear" name="fear" matInput type="text" placeholder="sua resposta:" >
+          <mat-error  *ngIf="formCliente.controls['fear'].errors?.['required']">
+            Preencha o campo acima
+           </mat-error>
         </mat-form-field>
 
       </section>
@@ -147,7 +168,7 @@
 
       <!-- Referente aos temas que você se interessa acima, De 0 a 10, o quanto você está COMPROMETIDO em aprender para alcançá-los? -->
       <section class="mt-5 mb-5">
-        <h4>Referente aos temas que você se interessa acima, De 0 a 10, o quanto você está COMPROMETIDO em aprender para alcançá-los?</h4>
+        <h4> <span class="aster">*</span> Referente aos temas que você se interessa acima, De 0 a 10, o quanto você está COMPROMETIDO em aprender para alcançá-los?</h4>
 
         <mat-form-field appearance="outline" class="w-50 personalSelect">
           <mat-label>Selecione uma opção</mat-label>
@@ -164,6 +185,9 @@
             <mat-option value="9">9</mat-option>
             <mat-option value="10">10</mat-option>
           </mat-select>
+          <mat-error  *ngIf="formCliente.controls['commitment'].errors?.['required']">
+            Selecione uma opção
+           </mat-error>
         </mat-form-field>
 
       </section>
@@ -172,10 +196,13 @@
 
       <!-- Comente um pouco comigo: como está seu estilo de vida ministerial e envolvimento na igreja hoje? -->
       <section class="mt-5 mb-5">
-        <h4>Comente um pouco comigo: como está seu estilo de vida ministerial e envolvimento na igreja hoje?</h4>
+        <h4><span class="aster">*</span> Comente um pouco comigo: como está seu estilo de vida ministerial e envolvimento na igreja hoje?</h4>
 
         <mat-form-field class="w-100" appearance="outline">
           <input  formControlName="involvementChurch" name="involvementChurch" matInput type="text" placeholder="sua resposta:" >
+          <mat-error  *ngIf="formCliente.controls['involvementChurch'].errors?.['required']">
+            Preencha o campo acima
+           </mat-error>
         </mat-form-field>
 
       </section>
@@ -184,10 +211,13 @@
 
       <!-- O que mais te atraiu na igreja? -->
       <section class="mt-5 mb-5">
-        <h4>O que mais te atraiu na igreja?</h4>
+        <h4><span class="aster">*</span> O que mais te atraiu na igreja?</h4>
 
         <mat-form-field class="w-100" appearance="outline">
           <input formControlName="attracted" name="attracted" matInput type="text" placeholder="sua resposta:" >
+          <mat-error  *ngIf="formCliente.controls['attracted'].errors?.['required']">
+            Preencha o campo acima
+           </mat-error>
         </mat-form-field>
 
       </section>
@@ -196,10 +226,13 @@
 
       <!-- Em qual área/ministério/atividade da igreja você gostaria de se envolver mais? -->
       <section class="mt-5 mb-5">
-        <h4>Em qual área/ministério/atividade da igreja você gostaria de se envolver mais?</h4>
+        <h4> <span class="aster">*</span> Em qual área/ministério/atividade da igreja você gostaria de se envolver mais?</h4>
 
         <mat-form-field class="w-100" appearance="outline">
           <input formControlName="LikeToinvolved" name="LikeToinvolved" matInput type="text" placeholder="sua resposta:" >
+          <mat-error  *ngIf="formCliente.controls['LikeToinvolved'].errors?.['required']">
+            Preencha o campo acima
+           </mat-error>
         </mat-form-field>
 
       </section>
@@ -208,7 +241,7 @@
 
       <!-- De 0 a 10 qual o seu nível de satisfação com a igreja Sara Sede Brasília? -->
       <section class="mt-5 mb-5">
-        <h4>De 0 a 10 qual o seu nível de satisfação com a igreja Sara Sede Brasília?</h4>
+        <h4><span class="aster">*</span> De 0 a 10 qual o seu nível de satisfação com a igreja Sara Sede Brasília?</h4>
 
         <mat-form-field appearance="outline" class="w-50 personalSelect">
           <mat-label>Selecione uma opção</mat-label>
@@ -225,6 +258,9 @@
             <mat-option value="9">9</mat-option>
             <mat-option value="10">10</mat-option>
           </mat-select>
+          <mat-error  *ngIf="formCliente.controls['satisfaction'].errors?.['required']">
+            Selecione uma opção
+           </mat-error>
         </mat-form-field>
 
       </section>
@@ -233,10 +269,13 @@
 
       <!-- O que mais você sente falta na igreja? -->
       <section class="mt-5 mb-5">
-        <h4>O que mais você sente falta na igreja?</h4>
+        <h4><span class="aster">*</span> O que mais você sente falta na igreja?</h4>
 
         <mat-form-field class="w-100" appearance="outline">
           <input formControlName="missInChurch" name="missInChurch" matInput type="text" placeholder="sua resposta:" >
+          <mat-error  *ngIf="formCliente.controls['missInChurch'].errors?.['required']">
+            Preencha o campo acima
+           </mat-error>
         </mat-form-field>
 
       </section>
@@ -245,10 +284,13 @@
 
       <!-- Quais são as pessoas em que você se espelha atualmente (suas referências)? -->
       <section class="mt-5 mb-5">
-        <h4>Quais são as pessoas em que você se espelha atualmente (suas referências)?</h4>
+        <h4><span class="aster">*</span> Quais são as pessoas em que você se espelha atualmente (suas referências)?</h4>
 
         <mat-form-field class="w-100" appearance="outline">
           <input formControlName="references" name="references" matInput type="text" placeholder="sua resposta:" >
+          <mat-error  *ngIf="formCliente.controls['references'].errors?.['required']">
+            Preencha o campo acima
+           </mat-error>
         </mat-form-field>
 
       </section>
@@ -257,7 +299,7 @@
 
       <!-- Qual sua idade? -->
       <section class="mt-5 mb-5">
-        <h4>Qual sua idade?</h4>
+        <h4><span class="aster">*</span> Qual sua idade?</h4>
 
         <mat-form-field appearance="outline" class="w-50 personalSelect">
           <mat-label>Selecione uma opção</mat-label>
@@ -276,6 +318,9 @@
             <mat-option value="Acima de 50 anos">Acima de 50 anos</mat-option>
             <mat-option value="Acima de 60 anos">Acima de 60 anos</mat-option>
           </mat-select>
+          <mat-error  *ngIf="formCliente.controls['age'].errors?.['required']">
+            Selecione uma opção
+           </mat-error>
         </mat-form-field>
 
       </section>
@@ -284,7 +329,7 @@
 
       <!-- Estado Atual de relacionamento -->
       <section class="mt-5 mb-5">
-        <h4>Estado Atual de relacionamento</h4>
+        <h4><span class="aster">*</span> Estado Atual de relacionamento</h4>
 
         <mat-form-field appearance="outline" class="w-50 personalSelect">
           <mat-label>Selecione uma opção</mat-label>
@@ -294,6 +339,9 @@
             <mat-option value="Divorciado(a)">Divorciado(a)</mat-option>
             <mat-option value="Viúvo(a)">Viúvo(a)</mat-option>
           </mat-select>
+          <mat-error  *ngIf="formCliente.controls['relationship'].errors?.['required']">
+           Selecione uma opção
+           </mat-error>
         </mat-form-field>
 
       </section>
@@ -302,7 +350,7 @@
 
       <!-- Sexo -->
       <section class="mt-5 mb-5">
-        <h4>Sexo</h4>
+        <h4><span class="aster">*</span> Sexo</h4>
 
         <mat-form-field appearance="outline" class="w-50 personalSelect">
           <mat-label>Selecione uma opção</mat-label>
@@ -310,6 +358,9 @@
             <mat-option value="Homem">Homem</mat-option>
             <mat-option value="Mulher">Mulher</mat-option>
           </mat-select>
+          <mat-error  *ngIf="formCliente.controls['sex'].errors?.['required']">
+           Selecione uma opção
+           </mat-error>
         </mat-form-field>
 
       </section>
@@ -318,11 +369,14 @@
 
       <!-- Você tem filhos? -->
       <section class="mt-5 mb-5">
-        <h4>Você tem filhos?</h4>
+        <h4><span class="aster">*</span> Você tem filhos?</h4>
 
         <mat-radio-group formControlName="child" name="child" class="d-flex flex-column" aria-label="Select an option">
-          <mat-radio-button [value]="true">Sim</mat-radio-button>
+          <mat-radio-button  [value]="true">Sim</mat-radio-button>
           <mat-radio-button [value]="false">Não</mat-radio-button>
+          <mat-error style="font-size: 14px;"  *ngIf="formCliente.controls['child'].errors?.['required']">
+            Selecione uma opção
+           </mat-error>
         </mat-radio-group>
 
       </section>
@@ -330,12 +384,12 @@
       <hr>
 
       <!-- Se a resposta acima for sim, quantos filhos você tem? -->
-      <section class="mt-5 mb-5">
+      <section class="mt-5 mb-5" [ngClass]="!formCliente.controls['child'].value? 'disabled': ''">
         <h4>Se a resposta acima for sim, quantos filhos você tem?</h4>
 
         <mat-form-field appearance="outline" class="w-50 personalSelect">
           <mat-label>Selecione uma opção</mat-label>
-          <mat-select formControlName="manyChilds" name="manyChilds">
+          <mat-select formControlName="manyChilds" name="manyChilds " >
             <mat-option value="1">1</mat-option>
             <mat-option value="2">2</mat-option>
             <mat-option value="3">3</mat-option>
@@ -356,15 +410,18 @@
 
       <!-- Qual é a sua profissão? (Pode marcar + de uma opção) -->
       <section class="mt-5 mb-5">
-        <h4>Qual é a sua profissão? (Pode marcar + de uma opção)</h4>
+        <h4><span class="aster">*</span> Qual é a sua profissão? (Pode marcar + de uma opção)</h4>
 
         <p id="occupation" *ngFor="let item of dataCheckboxOccupation">
           <mat-checkbox [value]="item" (change)="checkboxOccupation($event)">{{item}}</mat-checkbox>
         </p>
-        <p><mat-checkbox class="boxAnother">Outro:</mat-checkbox>
+        <p><mat-checkbox class="boxAnother" value="outro" (change)="otherOccupation($event)">Outro:</mat-checkbox>
           <mat-form-field appearance="outline" class="fieldCheckbox">
-            <input matInput type="text" placeholder="sua resposta:" >
+            <input matInput type="text" [disabled]="!(otherOccupationValue.checked)" placeholder="sua resposta:" [(ngModel)]="otherOccupationValue.field" [ngModelOptions]="{standalone: true}">
           </mat-form-field>
+          <mat-error  style="font-size: 14px;" *ngIf="formCliente.controls['occupation'].errors?.['required']">
+            Assine um dos campos acima
+           </mat-error>
         </p>
 
       </section>
@@ -373,10 +430,13 @@
 
       <!-- Qual bairro você mora? -->
       <section class="mt-5 mb-5">
-        <h4>Qual bairro você mora?</h4>
+        <h4><span class="aster">*</span> Qual bairro você mora?</h4>
 
         <mat-form-field class="w-100" appearance="outline">
           <input formControlName="address" name="address" matInput type="text" placeholder="sua resposta:" >
+          <mat-error  *ngIf="formCliente.controls['address'].errors?.['required']">
+            Preencha o campo acima
+           </mat-error>
         </mat-form-field>
 
       </section>
@@ -385,7 +445,7 @@
 
       <!-- Como você ficou sabendo desta pesquisa? -->
       <section class="mt-5 mb-5">
-        <h4>Como você ficou sabendo desta pesquisa?</h4>
+        <h4><span class="aster">*</span> Como você ficou sabendo desta pesquisa?</h4>
 
         <mat-form-field appearance="outline" class="w-50 personalSelect">
           <mat-label>Selecione uma opção</mat-label>
@@ -395,6 +455,9 @@
             <mat-option value="Site da Sara Sede Brasília">Site da Sara Sede Brasília</mat-option>
             <mat-option value="Líderança">Líderança</mat-option>
           </mat-select>
+          <mat-error  *ngIf="formCliente.controls['search'].errors?.['required']">
+          Selecione uma opção
+           </mat-error>
         </mat-form-field>
 
       </section>
@@ -402,7 +465,7 @@
       <hr>
 
       <section class=" d-flex justify-content-between">
-        <button type="submit" class="buttonDefault" (click)="submit()">
+        <button type="submit" class="buttonDefault" [disabled]="formCliente.invalid"  (click)="submit()">
           Receber meu livro
         </button>
 

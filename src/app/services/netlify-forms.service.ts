@@ -12,7 +12,7 @@ export class NetlifyFormsService {
 
   submitFeedback(fbEntry: any): Observable<any> {
     const entry = new HttpParams({ fromObject: {
-      'form-name': 'search',
+      'form-name': 'search_snt',
       ...fbEntry
     }});
 
