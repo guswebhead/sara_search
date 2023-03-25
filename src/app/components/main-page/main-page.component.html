@@ -15,8 +15,8 @@
 
       <div class="text2 d-flex flex-column">
         <span>
-          Já vou te enviar meu novo livro digital, mas antes preciso saber como posso te abençoar ainda mais aqui
-          nas minhas redes
+          Já vou te enviar nosso novo livro digital Winner, mas antes preciso saber como posso te abençoar ainda mais
+          aqui em nossas redes.
         </span>
 
         <span>
@@ -30,9 +30,7 @@
       </div>
     </div>
 
-
     <a href="#start" class="buttonPrincipal"> Iniciar </a>
-
 
     <hr>
 
@@ -40,312 +38,379 @@
 
   <section class="formsColumn h-100">
 
-    <form id="start" class="formsCards" action="" [formGroup]="form">
+    <form id="start" name="search" method="POST" class="formsCards" action="" [formGroup]="formCliente" data-netlify="true" netlify>
 
-            <div class="mb-5 d-flex align-items-center justify-content-end">
-              <span class="warn">Perguntas com <span class="aster">*</span> serão obrigatórias.</span>
-            </div>
+      <div class="mb-5 d-flex align-items-center justify-content-end">
+        <span class="warn">Perguntas com <span class="aster">*</span> serão obrigatórias.</span>
+      </div>
 
-        <section>
-          <h4>Se você pudesse tomar um café com os Bispos Lucas e Priscila, em quais dos assuntos abaixo
-            você gostaria que eles te ajudassem? (Pode marcar mais de um se preferir)</h4>
+      <!-- Qual seu nome? -->
+      <section class="mt-5 mb-5">
+        <h4>Qual seu nome?</h4>
 
-          <p><mat-checkbox formControlName="q1">Como organizar meu devocional e estudo para desenvolver meu ministério?</mat-checkbox></p>
-          <p><mat-checkbox formControlName="q2">Como fazer para perder a vergonha de falar em público?</mat-checkbox></p>
-          <p><mat-checkbox formControlName="q3">Como descobrir e viver o meu chamado?</mat-checkbox></p>
-          <p><mat-checkbox formControlName="q4">Como recomeçar depois de uma grande dor ? (Traição/Abandono/Luto/Decepção/Pecado/Trauma... )</mat-checkbox></p>
-          <p><mat-checkbox formControlName="q5">Como ter disciplina para conciliar ministério, família, estudo, lazer e etc?</mat-checkbox></p>
-          <p><mat-checkbox formControlName="q6">Como ter um namoro/casamento bem sucedido segundo o propósito de Deus?</mat-checkbox></p>
-          <p><mat-checkbox formControlName="q7">Como não se sentir mais culpado por não ter a vida que eu planejei (ou sonhei)?</mat-checkbox></p>
-          <p><mat-checkbox formControlName="q8">O que fazer para não se sentir mais atrasado em relação a tudo e a todos a minha volta?</mat-checkbox></p>
-          <p><mat-checkbox formControlName="q9">Quais as chaves para ser bem-sucedido nos negócios?</mat-checkbox></p>
-          <p><mat-checkbox formControlName="q10">Como se reinventar após o fracasso profissional?</mat-checkbox></p>
-          <p><mat-checkbox formControlName="outro" class="boxAnother">Outro:</mat-checkbox>
-            <mat-form-field appearance="outline" class="fieldCheckbox">
-              <input matInput type="text"  placeholder="sua resposta:"  formControlName="outroRes" [(ngModel)]="form.value['outroRes']">
-            </mat-form-field>
-          </p>
+        <mat-form-field class="w-100" appearance="outline">
+          <input matInput type="text" placeholder="sua resposta:" formControlName="name" name="name">
+        </mat-form-field>
 
-        </section>
+      </section>
 
-        <hr>
+      <hr>
 
-        <section class="mt-5 mb-5">
-          <h4>Sobre os temas que você escolheu acima, seja sincero, o quanto você acha que domina o
-            assunto?</h4>
+      <!-- >Qual seu e-mail? -->
+      <section class="mt-5 mb-5">
+        <h4>Qual seu e-mail?</h4>
 
-            <mat-form-field appearance="outline" class="w-50 personalSelect">
-              <mat-label>Selecione uma opção</mat-label>
-              <mat-select>
-                <mat-option value="option1">Não entendo nada sobre o tema e preciso aprender muito</mat-option>
-                <mat-option value="option2">Entendo um pouco, mas quero aprender mais</mat-option>
-                <mat-option value="option3">Considero que entendo 100%</mat-option>
-                <mat-option value="option3">Apenas admiro esse tema e não tenho nenhum interesse em aprender mais</mat-option>
-              </mat-select>
-            </mat-form-field>
+        <mat-form-field class="w-100" appearance="outline">
+          <input matInput type="email" placeholder="sua resposta:" formControlName="email" name="email">
+        </mat-form-field>
 
-        </section>
+      </section>
 
-        <hr>
+      <hr>
 
-        <section class="mt-5 mb-5">
-          <h4>O que mais tem te IMPEDIDO para romper nas áreas que você marcou acima?</h4>
-
-          <mat-form-field class="w-100"  appearance="outline">
-            <input matInput type="text" placeholder="sua resposta:"  formControlName="outroRes" [(ngModel)]="form.value['outroRes']">
+      <!-- Se você pudesse tomar um café com os Bispos Lucas e Priscila, em quais dos assuntos abaixo
+          você gostaria que eles te ajudassem? (Pode marcar mais de um se preferir) -->
+      <section class="mt-5 mb-5">
+        <h4>Se você pudesse tomar um café com os Bispos Lucas e Priscila, em quais dos assuntos abaixo
+          você gostaria que eles te ajudassem? (Pode marcar mais de um se preferir)</h4>
+          <p *ngFor="let item of dataCheckbox">
+            <mat-checkbox [value]="item" (change)="checkboxCoffee($event)">{{item}}</mat-checkbox></p>
+        <p><mat-checkbox class="boxAnother" value="outro">Outro:</mat-checkbox>
+          <mat-form-field appearance="outline"  class="fieldCheckbox">
+            <input matInput type="text" placeholder="sua resposta:">
           </mat-form-field>
+        </p>
 
-        </section>
+      </section>
 
-        <hr>
+      <hr>
 
-        <section class="mt-5 mb-5">
-          <h4>Eu quero te ajudar de verdade. Então, qual é o seu maior SONHO em relação aos assuntos que
-            você votou na primeira pergunta?</h4>
+      <!-- Sobre os temas que você escolheu acima, seja sincero, o quanto você acha que domina o
+          assunto? -->
+      <section class="mt-5 mb-5">
+        <h4>Sobre os temas que você escolheu acima, seja sincero, o quanto você acha que domina o
+          assunto?</h4>
 
-          <mat-form-field class="w-100"  appearance="outline">
-            <input matInput type="text" placeholder="sua resposta:"  formControlName="outroRes" [(ngModel)]="form.value['outroRes']">
+        <mat-form-field  appearance="outline" class="w-50 personalSelect">
+          <mat-label>Selecione uma opção</mat-label>
+          <mat-select formControlName="themeDomain">
+            <mat-option value="Não entendo nada sobre o tema e preciso aprender muito">Não entendo nada sobre o tema e preciso aprender muito</mat-option>
+            <mat-option value="Entendo um pouco, mas quero aprender mais">Entendo um pouco, mas quero aprender mais</mat-option>
+            <mat-option value="Considero que entendo 100%">Considero que entendo 100%</mat-option>
+            <mat-option value="Apenas admiro esse tema e não tenho nenhum interesse em aprender
+            mais">Apenas admiro esse tema e não tenho nenhum interesse em aprender
+              mais</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </section>
+
+      <hr>
+
+      <!-- O que mais tem te IMPEDIDO para romper nas áreas que você marcou acima? -->
+      <section class="mt-5 mb-5">
+        <h4>O que mais tem te IMPEDIDO para romper nas áreas que você marcou acima?</h4>
+
+        <mat-form-field  class="w-100" appearance="outline">
+          <input formControlName="prevents" matInput type="text" placeholder="sua resposta:" >
+        </mat-form-field>
+
+      </section>
+
+      <hr>
+
+      <!-- Eu quero te ajudar de verdade. Então, qual é o seu maior SONHO em relação aos assuntos que
+          você votou na primeira pergunta? -->
+      <section class="mt-5 mb-5">
+        <h4>Eu quero te ajudar de verdade. Então, qual é o seu maior SONHO em relação aos assuntos que
+          você votou na primeira pergunta?</h4>
+
+        <mat-form-field class="w-100" appearance="outline">
+          <input formControlName="dream" name="dream"  matInput type="text" placeholder="sua resposta:" >
+        </mat-form-field>
+
+      </section>
+
+      <hr>
+
+      <!-- Qual é o seu maior MEDO atualmente em relação aos temas votados acima? -->
+      <section class="mt-5 mb-5">
+        <h4>Qual é o seu maior MEDO atualmente em relação aos temas votados acima?</h4>
+
+        <mat-form-field  class="w-100" appearance="outline">
+          <input formControlName="fear" name="fear" matInput type="text" placeholder="sua resposta:" >
+        </mat-form-field>
+
+      </section>
+
+      <hr>
+
+      <!-- Referente aos temas que você se interessa acima, De 0 a 10, o quanto você está COMPROMETIDO em aprender para alcançá-los? -->
+      <section class="mt-5 mb-5">
+        <h4>Referente aos temas que você se interessa acima, De 0 a 10, o quanto você está COMPROMETIDO em aprender para alcançá-los?</h4>
+
+        <mat-form-field appearance="outline" class="w-50 personalSelect">
+          <mat-label>Selecione uma opção</mat-label>
+          <mat-select  formControlName="commitment">
+            <mat-option value="0">0</mat-option>
+            <mat-option value="1">1</mat-option>
+            <mat-option value="2">2</mat-option>
+            <mat-option value="3">3</mat-option>
+            <mat-option value="4">4</mat-option>
+            <mat-option value="5">5</mat-option>
+            <mat-option value="6">6</mat-option>
+            <mat-option value="7">7</mat-option>
+            <mat-option value="8">8</mat-option>
+            <mat-option value="9">9</mat-option>
+            <mat-option value="10">10</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </section>
+
+      <hr>
+
+      <!-- Comente um pouco comigo: como está seu estilo de vida ministerial e envolvimento na igreja hoje? -->
+      <section class="mt-5 mb-5">
+        <h4>Comente um pouco comigo: como está seu estilo de vida ministerial e envolvimento na igreja hoje?</h4>
+
+        <mat-form-field class="w-100" appearance="outline">
+          <input  formControlName="involvementChurch" name="involvementChurch" matInput type="text" placeholder="sua resposta:" >
+        </mat-form-field>
+
+      </section>
+
+      <hr>
+
+      <!-- O que mais te atraiu na igreja? -->
+      <section class="mt-5 mb-5">
+        <h4>O que mais te atraiu na igreja?</h4>
+
+        <mat-form-field class="w-100" appearance="outline">
+          <input formControlName="attracted" name="attracted" matInput type="text" placeholder="sua resposta:" >
+        </mat-form-field>
+
+      </section>
+
+      <hr>
+
+      <!-- Em qual área/ministério/atividade da igreja você gostaria de se envolver mais? -->
+      <section class="mt-5 mb-5">
+        <h4>Em qual área/ministério/atividade da igreja você gostaria de se envolver mais?</h4>
+
+        <mat-form-field class="w-100" appearance="outline">
+          <input formControlName="LikeToinvolved" name="LikeToinvolved" matInput type="text" placeholder="sua resposta:" >
+        </mat-form-field>
+
+      </section>
+
+      <hr>
+
+      <!-- De 0 a 10 qual o seu nível de satisfação com a igreja Sara Sede Brasília? -->
+      <section class="mt-5 mb-5">
+        <h4>De 0 a 10 qual o seu nível de satisfação com a igreja Sara Sede Brasília?</h4>
+
+        <mat-form-field appearance="outline" class="w-50 personalSelect">
+          <mat-label>Selecione uma opção</mat-label>
+          <mat-select formControlName="satisfaction" name="satisfaction">
+            <mat-option value="0">0</mat-option>
+            <mat-option value="1">1</mat-option>
+            <mat-option value="2">2</mat-option>
+            <mat-option value="3">3</mat-option>
+            <mat-option value="4">4</mat-option>
+            <mat-option value="5">5</mat-option>
+            <mat-option value="6">6</mat-option>
+            <mat-option value="7">7</mat-option>
+            <mat-option value="8">8</mat-option>
+            <mat-option value="9">9</mat-option>
+            <mat-option value="10">10</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </section>
+
+      <hr>
+
+      <!-- O que mais você sente falta na igreja? -->
+      <section class="mt-5 mb-5">
+        <h4>O que mais você sente falta na igreja?</h4>
+
+        <mat-form-field class="w-100" appearance="outline">
+          <input formControlName="missInChurch" name="missInChurch" matInput type="text" placeholder="sua resposta:" >
+        </mat-form-field>
+
+      </section>
+
+      <hr>
+
+      <!-- Quais são as pessoas em que você se espelha atualmente (suas referências)? -->
+      <section class="mt-5 mb-5">
+        <h4>Quais são as pessoas em que você se espelha atualmente (suas referências)?</h4>
+
+        <mat-form-field class="w-100" appearance="outline">
+          <input formControlName="references" name="references" matInput type="text" placeholder="sua resposta:" >
+        </mat-form-field>
+
+      </section>
+
+      <hr>
+
+      <!-- Qual sua idade? -->
+      <section class="mt-5 mb-5">
+        <h4>Qual sua idade?</h4>
+
+        <mat-form-field appearance="outline" class="w-50 personalSelect">
+          <mat-label>Selecione uma opção</mat-label>
+          <mat-select formControlName="age" name="age">
+            <mat-option value="12 a 15 anos">12 a 15 anos</mat-option>
+            <mat-option value="16 a 18 anos">16 a 18 anos</mat-option>
+            <mat-option value="19 a 21 anos">19 a 21 anos</mat-option>
+            <mat-option value="22 a 24 anos">22 a 24 anos</mat-option>
+            <mat-option value="25 a 27 anos">25 a 27 anos</mat-option>
+            <mat-option value="28 a 30 anos">28 a 30 anos</mat-option>
+            <mat-option value="35 a 34 anos">35 a 34 anos</mat-option>
+            <mat-option value="35 a 38 anos">35 a 38 anos</mat-option>
+            <mat-option value="39 a 42 anos">39 a 42 anos</mat-option>
+            <mat-option value="43 a 46 anos">43 a 46 anos</mat-option>
+            <mat-option value="Acima de 47 anos">Acima de 47 anos</mat-option>
+            <mat-option value="Acima de 50 anos">Acima de 50 anos</mat-option>
+            <mat-option value="Acima de 60 anos">Acima de 60 anos</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </section>
+
+      <hr>
+
+      <!-- Estado Atual de relacionamento -->
+      <section class="mt-5 mb-5">
+        <h4>Estado Atual de relacionamento</h4>
+
+        <mat-form-field appearance="outline" class="w-50 personalSelect">
+          <mat-label>Selecione uma opção</mat-label>
+          <mat-select formControlName="relationship" name="relationship">
+            <mat-option value="Solteiro(a)">Solteiro(a)</mat-option>
+            <mat-option value="Casado(a)">Casado(a)</mat-option>
+            <mat-option value="Divorciado(a)">Divorciado(a)</mat-option>
+            <mat-option value="Viúvo(a)">Viúvo(a)</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </section>
+
+      <hr>
+
+      <!-- Sexo -->
+      <section class="mt-5 mb-5">
+        <h4>Sexo</h4>
+
+        <mat-form-field appearance="outline" class="w-50 personalSelect">
+          <mat-label>Selecione uma opção</mat-label>
+          <mat-select formControlName="sex" name="sex">
+            <mat-option value="Homem">Homem</mat-option>
+            <mat-option value="Mulher">Mulher</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </section>
+
+      <hr>
+
+      <!-- Você tem filhos? -->
+      <section class="mt-5 mb-5">
+        <h4>Você tem filhos?</h4>
+
+        <mat-radio-group formControlName="child" name="child" class="d-flex flex-column" aria-label="Select an option">
+          <mat-radio-button [value]="true">Sim</mat-radio-button>
+          <mat-radio-button [value]="false">Não</mat-radio-button>
+        </mat-radio-group>
+
+      </section>
+
+      <hr>
+
+      <!-- Se a resposta acima for sim, quantos filhos você tem? -->
+      <section class="mt-5 mb-5">
+        <h4>Se a resposta acima for sim, quantos filhos você tem?</h4>
+
+        <mat-form-field appearance="outline" class="w-50 personalSelect">
+          <mat-label>Selecione uma opção</mat-label>
+          <mat-select formControlName="manyChilds" name="manyChilds">
+            <mat-option value="1">1</mat-option>
+            <mat-option value="2">2</mat-option>
+            <mat-option value="3">3</mat-option>
+            <mat-option value="4">4</mat-option>
+            <mat-option value="5">5</mat-option>
+            <mat-option value="6">6</mat-option>
+            <mat-option value="7">7</mat-option>
+            <mat-option value="8">8</mat-option>
+            <mat-option value="9">9</mat-option>
+            <mat-option value="10">10</mat-option>
+            <mat-option value="10++">10++</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </section>
+
+      <hr>
+
+      <!-- Qual é a sua profissão? (Pode marcar + de uma opção) -->
+      <section class="mt-5 mb-5">
+        <h4>Qual é a sua profissão? (Pode marcar + de uma opção)</h4>
+
+        <p id="occupation" *ngFor="let item of dataCheckboxOccupation">
+          <mat-checkbox [value]="item" (change)="checkboxOccupation($event)">{{item}}</mat-checkbox>
+        </p>
+        <p><mat-checkbox class="boxAnother">Outro:</mat-checkbox>
+          <mat-form-field appearance="outline" class="fieldCheckbox">
+            <input matInput type="text" placeholder="sua resposta:" >
           </mat-form-field>
+        </p>
 
-        </section>
+      </section>
 
-        <hr>
+      <hr>
 
-        <section class="mt-5 mb-5">
-          <h4>Qual é o seu maior MEDO atualmente em relação aos temas votados acima?</h4>
+      <!-- Qual bairro você mora? -->
+      <section class="mt-5 mb-5">
+        <h4>Qual bairro você mora?</h4>
 
-          <mat-form-field class="w-100"  appearance="outline">
-            <input matInput type="text" placeholder="sua resposta:"  formControlName="outroRes" [(ngModel)]="form.value['outroRes']">
-          </mat-form-field>
+        <mat-form-field class="w-100" appearance="outline">
+          <input formControlName="address" name="address" matInput type="text" placeholder="sua resposta:" >
+        </mat-form-field>
 
-        </section>
+      </section>
 
-        <hr>
+      <hr>
 
-        <section class="mt-5 mb-5">
-          <h4>Qual é o seu maior MEDO atualmente em relação aos temas votados acima?</h4>
+      <!-- Como você ficou sabendo desta pesquisa? -->
+      <section class="mt-5 mb-5">
+        <h4>Como você ficou sabendo desta pesquisa?</h4>
 
-          <mat-radio-group aria-label="Select an option">
-            <mat-radio-button value="0">0</mat-radio-button>
-            <mat-radio-button value="1">1</mat-radio-button>
-            <mat-radio-button value="2">2</mat-radio-button>
-            <mat-radio-button value="3">3</mat-radio-button>
-            <mat-radio-button value="4">4</mat-radio-button>
-            <mat-radio-button value="5">5</mat-radio-button>
-            <mat-radio-button value="6">6</mat-radio-button>
-            <mat-radio-button value="7">7</mat-radio-button>
-            <mat-radio-button value="8">8</mat-radio-button>
-            <mat-radio-button value="9">9</mat-radio-button>
-            <mat-radio-button value="10">10</mat-radio-button>
-          </mat-radio-group>
+        <mat-form-field appearance="outline" class="w-50 personalSelect">
+          <mat-label>Selecione uma opção</mat-label>
+          <mat-select formControlName="search" name="search">
+            <mat-option value="Instagram / Stories">Instagram / Stories</mat-option>
+            <mat-option value="Youtube">Youtube</mat-option>
+            <mat-option value="Site da Sara Sede Brasília">Site da Sara Sede Brasília</mat-option>
+            <mat-option value="Líderança">Líderança</mat-option>
+          </mat-select>
+        </mat-form-field>
 
-        </section>
+      </section>
 
-        <hr>
+      <hr>
 
-        <section class="mt-5 mb-5">
-          <h4>Comente um pouco comigo: como está seu estilo de vida ministerial hoje?</h4>
+      <section class=" d-flex justify-content-between">
+        <button type="submit" class="buttonDefault" (click)="submit()">
+          Receber meu livro
+        </button>
 
-          <mat-form-field class="w-100"  appearance="outline">
-            <input matInput type="text" placeholder="sua resposta:"  formControlName="outroRes" [(ngModel)]="form.value['outroRes']">
-          </mat-form-field>
+        <button class="buttonStroked"  (click)="clearForm()">
+          Limpar formulário
+        </button>
+      </section>
 
-        </section>
-
-        <hr>
-
-        <section class="mt-5 mb-5">
-          <h4>O que mais te atraiu na igreja?</h4>
-
-          <mat-form-field class="w-100"  appearance="outline">
-            <input matInput type="text" placeholder="sua resposta:"  formControlName="outroRes" [(ngModel)]="form.value['outroRes']">
-          </mat-form-field>
-
-        </section>
-
-        <hr>
-
-        <section class="mt-5 mb-5">
-          <h4>De 0 a 10 qual o seu nível de satisfação com a igreja Sara Sede Brasília?</h4>
-
-          <mat-radio-group aria-label="Select an option">
-            <mat-radio-button value="0">0</mat-radio-button>
-            <mat-radio-button value="1">1</mat-radio-button>
-            <mat-radio-button value="2">2</mat-radio-button>
-            <mat-radio-button value="3">3</mat-radio-button>
-            <mat-radio-button value="4">4</mat-radio-button>
-            <mat-radio-button value="5">5</mat-radio-button>
-            <mat-radio-button value="6">6</mat-radio-button>
-            <mat-radio-button value="7">7</mat-radio-button>
-            <mat-radio-button value="8">8</mat-radio-button>
-            <mat-radio-button value="9">9</mat-radio-button>
-            <mat-radio-button value="10">10</mat-radio-button>
-          </mat-radio-group>
-
-        </section>
-
-        <hr>
-
-        <section class="mt-5 mb-5">
-          <h4>O que mais você sente falta na igreja?</h4>
-
-          <mat-form-field class="w-100"  appearance="outline">
-            <input matInput type="text" placeholder="sua resposta:"  formControlName="outroRes" [(ngModel)]="form.value['outroRes']">
-          </mat-form-field>
-
-        </section>
-
-        <hr>
-
-        <section class="mt-5 mb-5">
-          <h4>Quais são as pessoas em que você se espelha atualmente (suas referências)?</h4>
-
-          <mat-form-field class="w-100"  appearance="outline">
-            <input matInput type="text" placeholder="sua resposta:"  formControlName="outroRes" [(ngModel)]="form.value['outroRes']">
-          </mat-form-field>
-
-        </section>
-
-        <hr>
-
-        <section class="mt-5 mb-5">
-          <h4>Qual sua idade ?</h4>
-
-            <mat-form-field appearance="outline" class="w-50 personalSelect">
-              <mat-label>Selecione uma opção</mat-label>
-              <mat-select>
-                <mat-option value="option1">12 a 15 anos</mat-option>
-                <mat-option value="option1">16 a 18 anos</mat-option>
-                <mat-option value="option1">19 a 21 anos</mat-option>
-                <mat-option value="option1">22 a 24 anos</mat-option>
-                <mat-option value="option1">25 a 27 anos</mat-option>
-                <mat-option value="option1">28 a 30 anos</mat-option>
-                <mat-option value="option1">35 a 34 anos</mat-option>
-                <mat-option value="option1">35 a 38 anos</mat-option>
-                <mat-option value="option1">39 a 42 anos</mat-option>
-                <mat-option value="option1">43 a 46 anos</mat-option>
-                <mat-option value="option1">Acima de 47 anos</mat-option>
-                <mat-option value="option1">Acima de 50 anos</mat-option>
-                <mat-option value="option1">Acima de 60 anos</mat-option>
-              </mat-select>
-            </mat-form-field>
-
-        </section>
-
-        <hr>
-
-        <section class="mt-5 mb-5">
-          <h4>Estado Atual de relacionamento</h4>
-
-            <mat-form-field appearance="outline" class="w-50 personalSelect">
-              <mat-label>Selecione uma opção</mat-label>
-              <mat-select>
-                <mat-option value="option1">Solteiro(a)</mat-option>
-                <mat-option value="option1">Casado(a)</mat-option>
-                <mat-option value="option1">Divorciado(a)</mat-option>
-                <mat-option value="option1">Viúvo(a)</mat-option>
-              </mat-select>
-            </mat-form-field>
-
-        </section>
-
-        <hr>
-
-        <section class="mt-5 mb-5">
-          <h4>Sexo</h4>
-
-            <mat-form-field appearance="outline" class="w-50 personalSelect">
-              <mat-label>Selecione uma opção</mat-label>
-              <mat-select>
-                <mat-option value="option1">Homem</mat-option>
-                <mat-option value="option1">Mulher</mat-option>
-              </mat-select>
-            </mat-form-field>
-
-        </section>
-
-        <hr>
-
-        <section class="mt-5 mb-5">
-          <h4>Qual é a sua profissão? (Pode marcar + de uma opção)</h4>
-
-          <p><mat-checkbox formControlName="q1">Estudante</mat-checkbox></p>
-          <p><mat-checkbox formControlName="q2">Empregado(a)</mat-checkbox></p>
-          <p><mat-checkbox formControlName="q3">Autônomo(a)</mat-checkbox></p>
-          <p><mat-checkbox formControlName="q4">Empresário(a)</mat-checkbox></p>
-          <p><mat-checkbox formControlName="q5">Dono(a) de Casa</mat-checkbox></p>
-          <p><mat-checkbox formControlName="q6">Gostaria de ser Empreendedor(a): sonha em empreender mas ainda não começou.</mat-checkbox></p>
-          <p><mat-checkbox formControlName="q7">Desempregado(a)</mat-checkbox></p>
-          <p><mat-checkbox formControlName="outro"  class="boxAnother">Outro:</mat-checkbox>
-            <mat-form-field appearance="outline" class="fieldCheckbox">
-              <input matInput type="text" placeholder="sua resposta:"  formControlName="outroRes" [(ngModel)]="form.value['outroRes']">
-            </mat-form-field>
-          </p>
-
-        </section>
-
-        <hr>
-
-        <section class="mt-5 mb-5">
-          <h4>Qual bairro você mora?</h4>
-
-          <mat-form-field class="w-100"  appearance="outline">
-            <input matInput type="text" placeholder="sua resposta:"  formControlName="outroRes" [(ngModel)]="form.value['outroRes']">
-          </mat-form-field>
-
-        </section>
-
-        <hr>
-
-        <section class="mt-5 mb-5">
-          <h4>Qual seu nome?</h4>
-
-          <mat-form-field class="w-100"  appearance="outline">
-            <input matInput type="text" placeholder="sua resposta:"  formControlName="outroRes" [(ngModel)]="form.value['outroRes']">
-          </mat-form-field>
-
-        </section>
-
-        <hr>
-
-        <section class="mt-5 mb-5">
-          <h4>Qual seu e-mail?</h4>
-
-          <mat-form-field class="w-100"  appearance="outline">
-            <input matInput type="text" placeholder="sua resposta:"  formControlName="outroRes" [(ngModel)]="form.value['outroRes']">
-          </mat-form-field>
-
-        </section>
-
-        <hr>
-
-        <section class="mt-5 mb-5">
-          <h4>Como você ficou sabendo desta pesquisa?</h4>
-
-            <mat-form-field appearance="outline" class="w-50 personalSelect">
-              <mat-label>Selecione uma opção</mat-label>
-              <mat-select >
-                <mat-option value="option1">Instagram / Stories</mat-option>
-                <mat-option value="option1">Youtube</mat-option>
-                <mat-option value="option1">Site da Sara Sede Brasília</mat-option>
-                <mat-option value="option1">Líderança</mat-option>
-              </mat-select>
-            </mat-form-field>
-
-        </section>
-
-        <hr>
-
-        <section class=" d-flex justify-content-between">
-            <button type="submit" class="buttonDefault">
-              Receber meu livro
-            </button>
-
-            <button class="buttonStroked">
-              Limpar formulário
-            </button>
-        </section>
-
-      </form>
+    </form>
   </section>
 </div>
