@@ -496,7 +496,7 @@
       <hr>
 
       <section class=" d-flex justify-content-between">
-        <button type="submit" class="buttonDefault"  (click)="submit()">
+        <button type="submit" class="buttonDefault" [disabled]="formCliente.invalid"  (click)="submit()">
           Receber meu livro
         </button>
 
