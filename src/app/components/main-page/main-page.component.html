@@ -239,9 +239,40 @@
 
       <hr>
 
+        <section class="mt-5 mb-5">
+        <h4><span class="aster">*</span> Qual Sara Nossa Terra Você frequenta?</h4>
+
+        <mat-radio-group formControlName="wichChurch" name="wichChurch" class="d-flex flex-column" aria-label="Select an option"  [(ngModel)]="myChurch">
+          <mat-radio-button    [value]="'Sara Sede Brasília'">Sara Sede Brasília</mat-radio-button>
+          <div class="d-flex align-items-center ">
+            <mat-radio-button class="boxAnother" [value]="'Outra'">Outra</mat-radio-button>
+            <mat-form-field appearance="outline"  class="fieldCheckbox">
+              <input matInput [disabled]="myChurch !== 'Outra'" type="text" placeholder="sua resposta:" [(ngModel)]="otherChurchValue.field" [ngModelOptions]="{standalone: true}">
+            </mat-form-field>
+          </div>
+
+          <mat-error style="font-size: 14px;"  *ngIf="formCliente.controls['wichChurch'].errors?.['required']">
+            Selecione uma opção
+           </mat-error>
+        </mat-radio-group>
+
+          <!-- <p> <mat-checkbox [value]="'Sara Sede Brasília'" (change)="checkboxChurch($event)">Sara Sede Brasília</mat-checkbox></p>
+          <p> <mat-checkbox  class="boxAnother" [value]="'outra'" (change)="otherChurch($event); checkboxChurch($event)">Outra:</mat-checkbox>
+            <mat-form-field appearance="outline"  class="fieldCheckbox">
+              <input matInput [disabled]="!(otherChurchValue.checked)" type="text" placeholder="sua resposta:" [(ngModel)]="otherChurchValue.field" [ngModelOptions]="{standalone: true}">
+            </mat-form-field>
+            <mat-error style="font-size: 14px;" *ngIf="formCliente.controls['wichChurch'].errors?.['required']">
+              Assine um dos campos acima
+            </mat-error>
+          </p> -->
+      </section>
+
+      <hr>
+
       <!-- De 0 a 10 qual o seu nível de satisfação com a igreja Sara Sede Brasília? -->
       <section class="mt-5 mb-5">
-        <h4><span class="aster">*</span> De 0 a 10 qual o seu nível de satisfação com a igreja Sara Sede Brasília?</h4>
+        <h4 *ngIf="myChurch === 'Sara Sede Brasília'"><span class="aster">*</span> De 0 a 10 qual o seu nível de satisfação com a igreja Sara Sede Brasília?</h4>
+        <h4  *ngIf="myChurch !== 'Sara Sede Brasília'"><span class="aster">*</span> De 0 a 10 qual o seu nível de satisfação com a sua igreja?</h4>
 
         <mat-form-field appearance="outline" class="w-50 personalSelect">
           <mat-label>Selecione uma opção</mat-label>
@@ -465,7 +496,7 @@
       <hr>
 
       <section class=" d-flex justify-content-between">
-        <button type="submit" class="buttonDefault" [disabled]="formCliente.invalid"  (click)="submit()">
+        <button type="submit" class="buttonDefault"  (click)="submit()">
           Receber meu livro
         </button>
 

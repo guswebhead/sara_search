@@ -15,29 +15,31 @@ export class MainPageComponent implements OnInit {
   dataCheckbox = dataForm.coffee
   dataCheckboxOccupation = dataForm.occupation
 
+
   formCliente = new FormGroup({
     name: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
     age: new FormControl('', Validators.required),
     relationship: new FormControl('', Validators.required),
-    child:new FormControl( '', Validators.required),
+    child: new FormControl('', Validators.required),
     manyChilds: new FormControl(),
     sex: new FormControl(null, Validators.required),
     address: new FormControl('', Validators.required),
     occupation: new FormArray<any>([], Validators.required),
-    coffe:  new FormArray<any>([], Validators.required),
-    themeDomain: new FormControl(null,  Validators.required),
-    prevents : new FormControl('',  Validators.required),
-    dream: new FormControl('',  Validators.required),
-    fear: new FormControl('',  Validators.required),
-    commitment: new FormControl(null,  Validators.required),
-    involvementChurch: new FormControl('',  Validators.required),
-    attracted: new FormControl('',  Validators.required),
-    LikeToinvolved:  new FormControl('',  Validators.required),
-    satisfaction:new FormControl(null,  Validators.required),
-    missInChurch: new FormControl('',  Validators.required),
-    references: new FormControl('',  Validators.required),
-    search: new FormControl(null,  Validators.required),
+    coffe: new FormArray<any>([], Validators.required),
+    themeDomain: new FormControl(null, Validators.required),
+    prevents: new FormControl('', Validators.required),
+    dream: new FormControl('', Validators.required),
+    fear: new FormControl('', Validators.required),
+    commitment: new FormControl(null, Validators.required),
+    involvementChurch: new FormControl('', Validators.required),
+    attracted: new FormControl('', Validators.required),
+    wichChurch: new FormControl('', Validators.required),
+    LikeToinvolved: new FormControl('', Validators.required),
+    satisfaction: new FormControl(null, Validators.required),
+    missInChurch: new FormControl('', Validators.required),
+    references: new FormControl('', Validators.required),
+    search: new FormControl(null, Validators.required),
   })
 
   checkBoxCoffee: Array<string> = []
@@ -51,19 +53,26 @@ export class MainPageComponent implements OnInit {
     checked: false,
     field: ''
   }
+  otherChurchValue = {
+    checked: false,
+    field: ''
+  }
+
+  myChurch: string = '';
+  churchs: string[] = ['Sara Sede Brasília', 'Outra']
 
   constructor(
     public formBuilder: FormBuilder,
-    private netlifyForms: NetlifyFormsService){
-      this.dataCheckbox = dataForm.coffee
-      this.dataCheckboxOccupation= dataForm.occupation
+    private netlifyForms: NetlifyFormsService) {
+    this.dataCheckbox = dataForm.coffee
+    this.dataCheckboxOccupation = dataForm.occupation
   }
 
-  ngOnInit(){
+  ngOnInit() {
 
   }
 
-  checkboxCoffee(e:any){
+  checkboxCoffee(e: any) {
     const checkArray: FormArray = this.formCliente.get('coffe') as FormArray;
 
     if (e.source.checked) {
@@ -79,14 +88,15 @@ export class MainPageComponent implements OnInit {
       });
     }
   }
-  otherCoffee(e:any){
+
+  otherCoffee(e: any) {
     this.otherCoffeeValue.checked = e.checked
-    if(!e.checked){
+    if (!e.checked) {
       this.otherCoffeeValue.field = ''
     }
   }
 
-  checkboxOccupation(e:any){
+  checkboxOccupation(e: any) {
     const checkArray: FormArray = this.formCliente.get('occupation') as FormArray;
     if (e.source.checked) {
       checkArray.push(new FormControl(e.source.value));
@@ -102,18 +112,49 @@ export class MainPageComponent implements OnInit {
     }
   }
 
-  otherOccupation(e:any){
+  otherOccupation(e: any) {
     this.otherOccupationValue.checked = e.checked
-    if(!e.checked){
+    if (!e.checked) {
       this.otherOccupationValue.field = ''
     }
   }
-  submit(){
-    if(this.otherOccupationValue.checked){
+
+  checkboxChurch(e: any) {
+    // const checkArray: FormArray = this.formCliente.get('wichChurch') as FormArray;
+
+    // if (e.source.checked) {
+    //   checkArray.push(new FormControl(e.source.value));
+    //   if(e.source.value !== 'outra'){
+    //     this.otherChurch(false)
+    //   }
+    // } else {
+    //   let i: number = 0;
+    //   checkArray.controls.forEach((item: any) => {
+    //     if (item.value == e.source.value) {
+    //       checkArray.removeAt(i);
+    //       return;
+    //     }
+    //     i++;
+    //   });
+    // }
+  }
+  otherChurch(e: any) {
+    this.otherChurchValue.checked = e.checked
+    if (!e.checked) {
+      this.otherChurchValue.field = ''
+    }
+  }
+  submit() {
+
+    const checkArray = this.formCliente.get('wichChurch');
+    if (this.formCliente.controls.wichChurch.value === 'Outra') {
+      checkArray?.setValue(this.otherChurchValue.field)
+    }
+    if (this.otherOccupationValue.checked) {
       const checkArray: FormArray = this.formCliente.get('occupation') as FormArray;
       checkArray.push(new FormControl(this.otherOccupationValue.field));
     }
-    if(this.otherCoffeeValue.checked){
+    if (this.otherCoffeeValue.checked) {
       const checkArray: FormArray = this.formCliente.get('coffe') as FormArray;
       checkArray.push(new FormControl(this.otherCoffeeValue.field));
     }
@@ -145,7 +186,7 @@ export class MainPageComponent implements OnInit {
       }
     );
   }
-  clearForm(){
+  clearForm() {
     Swal.fire({
       title: 'Deseja realmente limpar o formulário?',
       showCancelButton: true,
